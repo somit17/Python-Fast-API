@@ -7,6 +7,7 @@ def print_Menu():
     """Show Main Menu"""
     print(f'1. Add a task')
     print(f'2. View all tasks ')
+    print(f'3. Delete a task by id')
     print(f'0. Exit')
     print('==============================================')
 
@@ -19,6 +20,15 @@ def load_Tasks():
          except json.JSONDecodeError:
              return []
 
+
+def delete_Task(tasks):
+    load_Tasks()
+    idx = input(f'Delete task by id')
+    if idx is None:
+        return
+    deleted_Task = tasks.pop(idx)
+    save_tasks(tasks)
+    print(f"Delete task successfully ! Description - {deleted_Task['description']}")
 
 def main():
     tasks=load_Tasks()
@@ -37,6 +47,9 @@ def main():
             break
         elif choice=='3':
             save_tasks(tasks)
+            break
+        elif choice=='4':
+            delete_Task(tasks)
             break
 
 def add_Task(tasks):
